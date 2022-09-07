@@ -4,8 +4,10 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import './Register.css';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import { useState } from 'react';
 
 const Register = () => {
+    const [agree, setAgree] = useState(false);
     const [
         createUserWithEmailAndPassword,
         user,
@@ -27,8 +29,11 @@ const Register = () => {
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
+        // const agree = event.target.terms.checked;
 
-        createUserWithEmailAndPassword(email, password);
+        if (agree) {
+            createUserWithEmailAndPassword(email, password);
+        }
     }
 
     return (
@@ -38,9 +43,18 @@ const Register = () => {
                 <input type="text" name="name" id="" placeholder='Your Name' />
                 <input type="email" name="email" id="" placeholder='Your Email' required />
                 <input type="password" name="password" id="" placeholder='Your Password' required />
-                <input type="checkbox" name="terms" id="terms" />
-                <label htmlFor="terms">Accept genius Terms and Condition</label>
-                <input type="submit" value="Register" className='btn btn-primary w-50 mx-auto mt-4' />
+                <input
+                    onClick={() => setAgree(!agree)}
+                    type="checkbox"
+                    name="terms"
+                    id="terms" />
+                {/* <label className={agree ? 'text-primary ps-2' : 'text-danger ps-2'} htmlFor="terms">Accept genius Terms and Condition</label> */}
+                <label className={`ps-2 ${agree ? '' : 'text-danger'}`} htmlFor="terms">Accept genius Terms and Condition</label>
+                <input
+                    disabled={!agree}
+                    type="submit"
+                    value="Register"
+                    className='btn btn-primary w-50 mx-auto mt-4' />
             </form>
             <p className='m-2'>Already have an account? <Link to='/login' onClick={navigateLogin} className='text-danger text-decoration-none'>Please Login</Link> </p>
             <SocialLogin></SocialLogin>
