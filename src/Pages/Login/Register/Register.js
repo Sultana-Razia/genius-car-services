@@ -38,7 +38,9 @@ const Register = () => {
                 <input type="text" name="name" id="" placeholder='Your Name' />
                 <input type="email" name="email" id="" placeholder='Your Email' required />
                 <input type="password" name="password" id="" placeholder='Your Password' required />
-                <input type="submit" value="Register" className='mt-4' />
+                <input type="checkbox" name="terms" id="terms" />
+                <label htmlFor="terms">Accept genius Terms and Condition</label>
+                <input type="submit" value="Register" className='btn btn-primary w-50 mx-auto mt-4' />
             </form>
             <p className='m-2'>Already have an account? <Link to='/login' onClick={navigateLogin} className='text-danger text-decoration-none'>Please Login</Link> </p>
             <SocialLogin></SocialLogin>
